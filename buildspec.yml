@@ -2,25 +2,21 @@ version: 0.2
 
 phases:
   install:
+    runtime-versions:
+      docker: 20
     commands:
-      # Install Docker and AWS ECR CLI
-      - echo "Installing Docker and dependencies..."
-      - apt-get update || true  # If apt-get update fails, continue the build
-      # apt-get install -y docker.io
       - echo "Authenticating to AWS ECR..."
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 287870619061.dkr.ecr.us-east-1.amazonaws.com
-      - echo "Docker installation and ECR authentication completed."
+      - echo "Docker and ECR setup complete."
 
   build:
     commands:
-      # Build Docker image
       - echo "Building Docker image..."
       - docker build -t docker-website .
       - docker tag docker-website:latest 287870619061.dkr.ecr.us-east-1.amazonaws.com/docker-website-repo:latest
 
   post_build:
     commands:
-      # Push Docker image to ECR
       - echo "Pushing Docker image to ECR..."
       - docker push 287870619061.dkr.ecr.us-east-1.amazonaws.com/docker-website-repo:latest
 
