@@ -6,7 +6,7 @@ phases:
       # Install Docker and AWS ECR CLI
       - echo "Installing Docker and dependencies..."
       - apt-get update || true  # If apt-get update fails, continue the build
-      - apt-get install -y docker.io
+      # apt-get install -y docker.io
       - echo "Authenticating to AWS ECR..."
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 287870619061.dkr.ecr.us-east-1.amazonaws.com
       - echo "Docker installation and ECR authentication completed."
