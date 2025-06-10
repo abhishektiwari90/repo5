@@ -2,12 +2,9 @@ version: 0.2
 
 phases:
   install:
-    runtime-versions:
-      docker: 20
     commands:
-      - echo "Authenticating to AWS ECR..."
+      - echo "Logging in to Amazon ECR..."
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 287870619061.dkr.ecr.us-east-1.amazonaws.com
-      - echo "Docker and ECR setup complete."
 
   build:
     commands:
@@ -23,3 +20,4 @@ phases:
 artifacts:
   files:
     - '**/*'
+
